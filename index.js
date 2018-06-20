@@ -21,7 +21,7 @@ function wsdgen(file) {
   var diag;
 
   diag = readWSD(file);
-  genWSD(diag, file);
+  writeWSD(diag, file);
 } 
 
 // read the wsd file
@@ -33,17 +33,17 @@ function readWSD(file) {
 }
 
 // make the wsd call
-function genWSD(diag, file) {
-  var style = "modern-blue";
+function writeWSD(diag, file) {
+  var style = "vs2010";
   var type = "png";
   var outfile = file.replace('.wsd','.png');
-  wsd.diagram(diag,style, type, function(err, buf){
+
+  wsd.diagram(diag, style, type, function(err, buf){
     if(err) {
       console.error(err);
     } else {
       console.log('writing '+outfile);
       fs.writeFileSync(outfile, buf);
-
    }
   });
 }
