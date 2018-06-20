@@ -13,30 +13,41 @@ var program = require('commander');
 var fs = require('fs');
 var diag = {text:"",type:"",style:"",file:""};
 
+// top-level routine
 program
   .arguments('<file>')
   .action(function(file){wsdgen(file)})
   .parse(process.argv);
 
+// do the work
 function wsdgen(file) {
   var text;
 
   diag.file = file;
   diag.type = "png";
   diag.style = "vs2010"; 
-  diag.text = readWSD(diag);
-  writeWSD(diag);
+  if(readWSD(diag)===true) {
+    writeWSD(diag);
+  }
 } 
 
-// read the wsd file
+// read the wsd 
 function readWSD(diag) {
-  var rtn;
+  var rtn = "";
 
-  rtn = fs.readFileSync(diag.file,'utf8');
+  if(fs.existsSync(diag.file)) {
+    diag.text = fs.readFileSync(diag.file,'utf8');
+    rtn = true;
+  } 
+  else {
+    console.log("File not found: "+diag.file);
+    rtn = false;
+  }  
+
   return rtn;
 }
 
-// make the wsd call
+// write the png
 function writeWSD(diag) {
   var text = ((diag.text&&diag.text!=="")?diag.text:"missing WSD");
   var style = ((diag.style&&diag.style!=="")?diag.style:"vs2010");
@@ -52,5 +63,6 @@ function writeWSD(diag) {
    }
   });
 }
-// eof
+
+// *** eof
 
