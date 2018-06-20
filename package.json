@@ -2,6 +2,10 @@
   "name": "wsd-gen",
   "version": "1.0.0",
   "description": "generate web sequence diagrams",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/mamund/wsd-gen.git"
+  }
   "main": "index.js",
   "bin" : {
     "wsdgen" : "./index.js"
