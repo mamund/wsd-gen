@@ -11,6 +11,7 @@
 var wsd = require('websequencediagrams');
 var program = require('commander');
 var fs = require('fs');
+var diag = {text:"",type:"",style:"",file:""};
 
 program
   .arguments('<file>')
@@ -18,27 +19,31 @@ program
   .parse(process.argv);
 
 function wsdgen(file) {
-  var diag;
+  var text;
 
-  diag = readWSD(file);
-  writeWSD(diag, file);
+  diag.file = file;
+  diag.type = "png";
+  diag.style = "vs2010"; 
+  diag.text = readWSD(diag);
+  writeWSD(diag);
 } 
 
 // read the wsd file
-function readWSD(file) {
+function readWSD(diag) {
   var rtn;
 
-  rtn = fs.readFileSync(file,'utf8');
+  rtn = fs.readFileSync(diag.file,'utf8');
   return rtn;
 }
 
 // make the wsd call
-function writeWSD(diag, file) {
-  var style = "vs2010";
-  var type = "png";
-  var outfile = file.replace('.wsd','.png');
+function writeWSD(diag) {
+  var text = ((diag.text&&diag.text!=="")?diag.text:"missing WSD");
+  var style = ((diag.style&&diag.style!=="")?diag.style:"vs2010");
+  var type = ((diag.type&&diag.type!=="")?diag.type:"png");
+  var outfile = ((diag.file&&diag.file!=="")?diag.file.replace('.wsd','.png'):"wsdgen.png");
 
-  wsd.diagram(diag, style, type, function(err, buf){
+  wsd.diagram(text, style, type, function(err, buf){
     if(err) {
       console.error(err);
     } else {
@@ -47,5 +52,5 @@ function writeWSD(diag, file) {
    }
   });
 }
+// eof
 
-// write
