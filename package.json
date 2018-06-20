@@ -1,0 +1,25 @@
+{
+  "name": "wsd-gen",
+  "version": "1.0.0",
+  "description": "generate web sequence diagrams",
+  "main": "index.js",
+  "bin" : {
+    "wsdgen" : "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "wsd",
+    "web",
+    "sequence",
+    "diagram",
+    "mamund"
+  ],
+  "author": "Mike Amundsen",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.15.1",
+    "websequencediagrams": "^0.1.1"
+  }
+}

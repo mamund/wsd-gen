@@ -1,0 +1,9 @@
+home->+WIP: startOnboarding(identifier)
+WIP->+customerData: collectCustomerData(identifier,name,email)
+customerData-->-WIP: saveToWIP(identifier,name,email)
+WIP->+accountData: collectAccountData(identifier,region,discount)
+accountData-->-WIP:saveToWIP(identifier,region,discount)
+WIP-->+finalizeWIP:completeOnboarding(identifier)
+finalizeWIP->-home:goHome
+WIP-->+cancelWIP:abandonOnboarding(identifier)
+cancelWIP->-home:goHome
