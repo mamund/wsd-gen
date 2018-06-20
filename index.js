@@ -2,6 +2,8 @@
 
 /* 
  * wsdgen utility
+ * converts valid WSD file into PNG
+ * calls http://www.websequencediagrams.com
  * 2018-06
  * mamund
  */
