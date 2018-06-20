@@ -21,19 +21,31 @@ function wsdgen(file) {
   var diag;
 
   diag = readWSD(file);
+  genWSD(diag, file);
 } 
 
-
+// read the wsd file
 function readWSD(file) {
-  var rtn = '';
+  var rtn;
 
-   fs.readFile(file,'utf8',function(err,contents) {
-    if(err) {
-      console.log(err);
-    } else  {
-      rtn = contents;
-    }
-  });
+  rtn = fs.readFileSync(file,'utf8');
   return rtn;
 }
 
+// make the wsd call
+function genWSD(diag, file) {
+  var style = "modern-blue";
+  var type = "png";
+  var outfile = file.replace('.wsd','.png');
+  wsd.diagram(diag,style, type, function(err, buf){
+    if(err) {
+      console.error(err);
+    } else {
+      console.log('writing '+outfile);
+      fs.writeFileSync(outfile, buf);
+
+   }
+  });
+}
+
+// write
